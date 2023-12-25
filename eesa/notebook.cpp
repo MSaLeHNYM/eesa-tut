@@ -1,8 +1,5 @@
 #include "notebook.h"
 
-
-
-
 // Universal Funcs
 bool isValidEmail(const string &email)
 {
@@ -15,51 +12,62 @@ bool isValidPhoneNumber(const string &number)
     return !number.empty() && all_of(number.begin(), number.end(), ::isdigit);
 }
 
-
-
 // user stuff
-void user::setFname(string Fname){
+void user::setFname(string Fname)
+{
     firstName = Fname;
 }
 
-void user::setLname(string Lname){
-    lastName=Lname;
+void user::setLname(string Lname)
+{
+    lastName = Lname;
 }
 
-void user::setEmail(string Email){
-    email=Email;
+void user::setEmail(string Email)
+{
+    email = Email;
 }
 
-void user::setUser(string Fname , string Lname, string Email){
+void user::setUser(string Fname, string Lname, string Email)
+{
     setFname(Fname);
     setLname(Lname);
     setEmail(Email);
 }
 
-void user::addNumber(pair<string, PhoneType> number){
+void user::addNumber(pair<string, PhoneType> number)
+{
     numbers.push_back(number);
 }
 
+// notebook stuff
 
-//notebook stuff
-
-void List::addUser(user User){
+void List::addUser(user User)
+{
     notebook.push_back(User);
 }
 
-void List::removeUser(int index){
+void List::removeUser(int index)
+{
     notebook.erase(notebook.begin() + index);
 }
 
-List List::search(string entry) {
+List List::search(string entry)
+{
     List res;
-    for (size_t i = 0; i < notebook.size(); i++) {
+    for (size_t i = 0; i < notebook.size(); i++)
+    {
         const user &User = notebook[i];
-        if (User.getFirstName() == entry || User.getLastName() == entry || User.getEmail() == entry) {
+        if (User.getFirstName() == entry || User.getLastName() == entry || User.getEmail() == entry)
+        {
             res.addUser(User);
-        } else {
-            for (const auto &number : User.getNumbers()) {
-                if (number.first == entry) {
+        }
+        else
+        {
+            for (const auto &number : User.getNumbers())
+            {
+                if (number.first == entry)
+                {
                     res.addUser(User);
                     break;
                 }
@@ -69,22 +77,22 @@ List List::search(string entry) {
     return res;
 }
 
-
-void List::sort() {
-    for (size_t i = 0; i < notebook.size() - 1; ++i) {
-        for (size_t j = 0; j < notebook.size() - i - 1; ++j) {
+void List::sort()
+{
+    for (size_t i = 0; i < notebook.size() - 1; ++i)
+    {
+        for (size_t j = 0; j < notebook.size() - i - 1; ++j)
+        {
             if (notebook[j].getFirstName() + notebook[j].getLastName() >
-                notebook[j + 1].getFirstName() + notebook[j + 1].getLastName()) {
+                notebook[j + 1].getFirstName() + notebook[j + 1].getLastName())
+            {
                 swap(notebook[j], notebook[j + 1]);
             }
         }
     }
 }
 
-
-void List::deleteAll(){
+void List::deleteAll()
+{
     notebook.clear();
 }
-
-
-

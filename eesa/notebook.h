@@ -12,7 +12,6 @@ using namespace std;
 bool isValidEmail(const string &email);
 bool isValidPhoneNumber(const string &number);
 
-
 enum PhoneType
 {
     Main = 1,
@@ -22,7 +21,8 @@ enum PhoneType
     Fax
 };
 
-class user{
+class user
+{
 private:
     string firstName;
     string lastName;
@@ -30,30 +30,33 @@ private:
     vector<pair<string, PhoneType>> numbers;
 
 public:
-
     void setFname(string Fname);
     void setLname(string Lname);
     void setEmail(string Email);
-    void setUser(string Fname , string Lname, string Email);
+    void setUser(string Fname, string Lname, string Email);
     void addNumber(pair<string, PhoneType> number);
-    string getFirstName() const {
+    string getFirstName() const
+    {
         return firstName;
     }
 
-    string getLastName() const {
+    string getLastName() const
+    {
         return lastName;
     }
 
-    string getEmail() const {
+    string getEmail() const
+    {
         return email;
     }
-    const vector<pair<string, PhoneType>>& getNumbers() const {
+    const vector<pair<string, PhoneType>> &getNumbers() const
+    {
         return numbers;
     }
-
 };
 
-class List{
+class List
+{
 private:
     vector<user> notebook;
 
@@ -64,21 +67,5 @@ public:
     void sort();
     void deleteAll();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // NOTEBOOK_H
