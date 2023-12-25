@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "notebook.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,7 +18,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_showAddUserMenu_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
+    List NoteBook;
 };
 #endif // MAINWINDOW_H
