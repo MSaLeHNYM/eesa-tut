@@ -2,213 +2,361 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>984</width>
-    <height>593</height>
+    <width>916</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QPushButton" name="show_PB">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>60</y>
-      <width>311</width>
-      <height>252</height>
+      <x>122</x>
+      <y>211</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>First Name</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="FnameInput"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Last Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="LnameInput"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Email: </string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="EmailInput"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Number: (At Least One Number You Should Add)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetNoConstraint</enum>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Number:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="FnameInput_2"/>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <property name="text">
+     <string>Show</string>
+    </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QPushButton" name="Exit_PB">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>90</y>
-      <width>161</width>
-      <height>121</height>
+      <x>532</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="showAddUserMenu_PB">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-         <bold>true</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="text">
-        <string>Add User Menu</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="ShowAll_PB">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-         <bold>true</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="text">
-        <string>Show All User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="addUser_PB_2">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-         <bold>true</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="text">
-        <string>Exit</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="main_textEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>641</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Phone_Number_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>134</x>
+      <y>123</y>
+      <width>154</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Fname_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>71</x>
+      <y>13</y>
+      <width>154</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>13</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fname :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>17</x>
+      <y>123</y>
+      <width>108</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Phone_Number :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1</x>
+      <y>161</y>
+      <width>89</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Phone_Type  :</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clear_PB">
+    <property name="geometry">
+     <rect>
+      <x>332</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>clear</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>48</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lname :</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Lname_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>71</x>
+      <y>48</y>
+      <width>154</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Search_PB">
+    <property name="geometry">
+     <rect>
+      <x>392</x>
+      <y>212</y>
+      <width>261</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Add_PB">
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>211</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delete_PB">
+    <property name="geometry">
+     <rect>
+      <x>132</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Delete_All_PB">
+    <property name="geometry">
+     <rect>
+      <x>232</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Sort_PB">
+    <property name="geometry">
+     <rect>
+      <x>432</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Save_PB">
+    <property name="geometry">
+     <rect>
+      <x>32</x>
+      <y>471</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Email_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>64</x>
+      <y>83</y>
+      <width>154</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>83</y>
+      <width>44</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Email :</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>211</y>
+      <width>142</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Phone_Number</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Phone_Type_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>160</y>
+      <width>80</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Main</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Home</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>work</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>office</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fax</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QGroupBox" name="search_by_groupBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>392</x>
+      <y>152</y>
+      <width>259</width>
+      <height>53</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>search by:</string>
+    </property>
+    <widget class="QRadioButton" name="Fname_radioButton">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>31</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Fname</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="Number_radioButton">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>169</x>
+       <y>31</y>
+       <width>81</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Number</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="Lname_radioButton">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>31</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Lname</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -216,8 +364,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>984</width>
-     <height>23</height>
+     <width>916</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -226,18 +374,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>addUser_PB_2</sender>
+   <sender>Exit_PB</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>281</y>
+     <x>907</x>
+     <y>536</y>
     </hint>
     <hint type="destinationlabel">
-     <x>74</x>
-     <y>559</y>
+     <x>365</x>
+     <y>71</y>
     </hint>
    </hints>
   </connection>

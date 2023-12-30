@@ -11,6 +11,8 @@ using namespace std;
 // Universal Funcs
 bool isValidEmail(const string &email);
 bool isValidPhoneNumber(const string &number);
+int stringToIntPhoneType(string type);
+
 
 enum PhoneType
 {
@@ -20,6 +22,9 @@ enum PhoneType
     Office,
     Fax
 };
+
+// Universal Funcs
+string phoneTypeToString(PhoneType type);
 
 class user
 {
@@ -66,6 +71,12 @@ public:
     List search(string entry);
     void sort();
     void deleteAll();
+    void show();
+    vector<user> getnotebook() const
+    {
+        return notebook;
+    };
+    // friend void MainWindow::on_show_PB_clicked();
 };
 
 #endif // NOTEBOOK_H

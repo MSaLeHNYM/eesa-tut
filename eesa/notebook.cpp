@@ -12,6 +12,40 @@ bool isValidPhoneNumber(const string &number)
     return !number.empty() && all_of(number.begin(), number.end(), ::isdigit);
 }
 
+string phoneTypeToString(PhoneType type)
+{
+    switch (type)
+    {
+    case PhoneType::Main:
+        return "Main";
+    case PhoneType::Home:
+        return "Home";
+    case PhoneType::Work:
+        return "Work";
+    case PhoneType::Office:
+        return "Office";
+    case PhoneType::Fax:
+        return "Fax";
+    default:
+        return "Unknown";
+    }
+}
+
+int stringToIntPhoneType(string type)
+{
+    if (type=="Main")
+        return 1;
+    else if(type=="Home")
+        return 2;
+    else if (type=="work")
+        return 3;
+    else if (type=="office")
+        return 4;
+    else if (type=="Fax")
+        return 5;
+    else
+        return -1;
+}
 // user stuff
 void user::setFname(string Fname)
 {
@@ -96,3 +130,11 @@ void List::deleteAll()
 {
     notebook.clear();
 }
+
+void List::show()
+{
+
+}
+
+
+

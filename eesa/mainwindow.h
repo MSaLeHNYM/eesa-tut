@@ -21,6 +21,12 @@ public:
 private slots:
     void on_showAddUserMenu_PB_clicked();
 
+    void on_show_PB_clicked();
+
+    void on_clear_PB_clicked();
+
+    void on_Add_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
     List NoteBook;
