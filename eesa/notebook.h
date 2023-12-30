@@ -1,6 +1,7 @@
 #ifndef NOTEBOOK_H
 #define NOTEBOOK_H
 
+#include <qstring.h>
 #include <iostream>
 #include <vector>
 #include <regex>
@@ -12,6 +13,7 @@ using namespace std;
 bool isValidEmail(const string &email);
 bool isValidPhoneNumber(const string &number);
 
+
 enum PhoneType
 {
     Main = 1,
@@ -20,6 +22,25 @@ enum PhoneType
     Office,
     Fax
 };
+
+// QString phoneTypeToString(PhoneType type)
+// {
+//     switch (type)
+//     {
+//     case PhoneType::Main:
+//         return "Main";
+//     case PhoneType::Home:
+//         return "Home";
+//     case PhoneType::Work:
+//         return "Work";
+//     case PhoneType::Office:
+//         return "Office";
+//     case PhoneType::Fax:
+//         return "Fax";
+//     default:
+//         return "Unknown";
+//     }
+// }
 
 class user
 {
@@ -34,7 +55,10 @@ public:
     void setLname(string Lname);
     void setEmail(string Email);
     void setUser(string Fname, string Lname, string Email);
-    void addNumber(pair<string, PhoneType> number);
+    void addNumber(const vector<pair<string, PhoneType>> &numbers)
+    {
+        this->numbers.insert(this->numbers.end(), numbers.begin(), numbers.end());
+    }
     string getFirstName() const
     {
         return firstName;
@@ -66,6 +90,9 @@ public:
     List search(string entry);
     void sort();
     void deleteAll();
+    const vector<user> $getNoteBook() const {
+        return notebook;
+    }
 };
 
 #endif // NOTEBOOK_H

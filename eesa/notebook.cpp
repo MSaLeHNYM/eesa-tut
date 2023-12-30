@@ -35,10 +35,6 @@ void user::setUser(string Fname, string Lname, string Email)
     setEmail(Email);
 }
 
-void user::addNumber(pair<string, PhoneType> number)
-{
-    numbers.push_back(number);
-}
 
 // notebook stuff
 

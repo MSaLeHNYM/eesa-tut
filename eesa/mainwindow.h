@@ -20,9 +20,18 @@ public:
 
 private slots:
     void on_showAddUserMenu_PB_clicked();
+    void on_Add_this_Number_PB_clicked();
+    void on_Add_This_User_PB_clicked();
+
+    void on_Exit_PB_clicked();
 
 private:
+    void UpdateTextShower();
+
     Ui::MainWindow *ui;
+
     List NoteBook;
+    vector<pair<string, PhoneType>> ui_numbers;
+
 };
 #endif // MAINWINDOW_H
