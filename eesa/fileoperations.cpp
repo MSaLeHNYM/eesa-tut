@@ -1,10 +1,10 @@
 #include "fileoperations.h"
-
-
+#include "mainwindow.h"
+#include <qdir.h>
 
 void saveAll(List notebook)
 {
-    ofstream outFile("db.txt");
+    ofstream outFile((QDir::currentPath()+"/db.txt").toStdString());
     if (outFile.is_open())
     {
         for (const auto &user : notebook.$getNoteBook())
@@ -25,9 +25,10 @@ void saveAll(List notebook)
     }
 }
 
-void loadAll(List notebook)
+List loadAll()
 {
-    ifstream inFile("db.txt");
+    List res;
+    ifstream inFile((QDir::currentPath()+"/db.txt").toStdString());
     if (inFile.is_open())
     {
         while (!inFile.eof())
@@ -61,7 +62,7 @@ void loadAll(List notebook)
             }
 
             User.addNumber(numbers);
-            notebook.addUser(User);
+            res.addUser(User);
         }
 
         inFile.close();
@@ -71,4 +72,5 @@ void loadAll(List notebook)
     {
         // cout << "No db.txt found or error opening db.txt for reading.\n";
     }
+    return res;
 }

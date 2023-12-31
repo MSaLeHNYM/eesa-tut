@@ -4,6 +4,7 @@
 #include "fileoperations.h"
 #include <QMessageBox>
 #include <vector>
+#include <qdir.h>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,12 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     //load Everything
-    loadAll(NoteBook);
+    NoteBook = loadAll();
 
 
 
     ui->setupUi(this);
-
+    ui->Screen->setText(QDir::currentPath());
 
     // add items to combo box
     ui->comboBox->addItem("Main");
@@ -102,7 +103,7 @@ void MainWindow::UpdateTextShower(){
         QString element = QString::fromStdString(entry.first) + "  (" + QString::number(static_cast<int>(entry.second)) + ")\n";
         text.append(element);
     }
-    ui->numbers_Shower->setText(text);
+    ui->Screen->setText(text);
 }
 
 
@@ -149,8 +150,86 @@ void MainWindow::on_Add_This_User_PB_clicked()
 
 
 
+void MainWindow::on_ShowAllUser_PB_clicked()
+{
+    ui_numbers.clear();
+    QString text;
+    if(NoteBook.$getNoteBook().size() == 0){
+        ui->Screen->setText("There Is No User!!");
+        return;
+    }else{
+        for(auto &uu : NoteBook.$getNoteBook()){
+            text.append("First Name: " + QString::fromStdString(uu.getFirstName()) + "\n");
+            text.append("Last Name: " + QString::fromStdString(uu.getLastName()) + "\n");
+            text.append("Email: " + QString::fromStdString(uu.getEmail()) + "\n");
+            text.append(QString::fromStdString(uu.getFirstName()) + "'s Numbers:\n");
+            vector<pair<string, PhoneType>> nums = uu.getNumbers();
+            if(nums.size() == 0){
+                text.append("There Is No Num...\n");
+            }else{
+                for(auto &nn : nums){
+                    text.append(QString::fromStdString(nn.first) + "  (" + QString::number(static_cast<int>(nn.second)) + ")\n");
+                }
+            }
+            text.append("_________________\n");
+        }
+    }
+    ui->Screen->setText(text);
+}
 
-void MainWindow::on_Exit_PB_clicked()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString entry;
+    entry = ui->SearchInput->text();
+    QString text;
+
+    if(entry.size() == 0){
+        QMessageBox::critical(this, "Error", "Fill Search Input First", QMessageBox::Ok);
+        return;
+    }else{
+        List res = NoteBook.search(entry.toStdString());
+        int count = 0;
+        for(auto &uu : res.$getNoteBook()){
+            count++;
+            text.append(QString::number(count) + ":\n");
+            text.append("   First Name: " + QString::fromStdString(uu.getFirstName()) + "\n");
+            text.append("   Last Name: " + QString::fromStdString(uu.getLastName()) + "\n");
+            text.append("   Email: " + QString::fromStdString(uu.getEmail()) + "\n");
+            text.append("   " + QString::fromStdString(uu.getFirstName()) + "'s Numbers:\n\n");
+            vector<pair<string, PhoneType>> nums = uu.getNumbers();
+            if(nums.size() == 0){
+                text.append("   There Is No Num...\n");
+            }else{
+                for(auto &nn : nums){
+                    text.append("   " + QString::fromStdString(nn.first) + "  (" + QString::number(static_cast<int>(nn.second)) + ")\n");
+                }
+            }
+            text.append("_________________\n");
+        }
+
+    }
+    ui->Screen->setText(text);
+}
+
+
+
+
+
+void MainWindow::on_SaveAll_PB_2_clicked()
 {
     saveAll(NoteBook);
 }

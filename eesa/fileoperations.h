@@ -8,7 +8,7 @@
 using namespace std;
 
 void saveAll(List notebook);
-void loadAll(List notebook);
+List loadAll();
 
 
 
