@@ -1,4 +1,5 @@
 #include "notebook.h"
+#include <fstream>
 
 // Universal Funcs
 bool isValidEmail(const string &email)
@@ -11,6 +12,27 @@ bool isValidPhoneNumber(const string &number)
 {
     return !number.empty() && all_of(number.begin(), number.end(), ::isdigit);
 }
+bool isValidName(const string &name)
+{
+    return !name.empty() && all_of(name.begin(), name.end(), ::isalpha);
+}
+
+bool IsThisNotRepetitiveNumber(List NoteBook ,string number)
+{
+    vector<user> notebook=NoteBook.getnotebook();
+    for ( user u :notebook )
+    {
+        for ( auto entry : u.getNumbers())
+        {
+            if (entry.first == number)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 
 string phoneTypeToString(PhoneType type)
 {
@@ -46,6 +68,35 @@ int stringToIntPhoneType(string type)
     else
         return -1;
 }
+
+// bool saveAll(List NoteBook.)
+// {//    file_obj.open("Input.txt", ios::app);
+
+//     ofstream outFile;
+//     outFile.open("db.txt",ios::out);
+//     if (outFile.is_open())
+//     {
+//         for (const user &user : notebook)
+//         {
+//             outFile << user.getFirstName() << " " << user.getLastName() << " " << user.getEmail() << "\n";
+//             for (const auto &entry : user.getNumbers())
+//             {
+//                 outFile << entry.first << " " << static_cast<int>(entry.second) << "\n";
+//             }
+//             outFile << "---\n";
+//         }
+//         outFile.close();
+//         return true;
+//         // cout << "All users saved to db.txt.\n";
+//     }
+//     else
+//     {
+//         return false;
+//         // cout << "Error opening db.txt for writing.\n";
+//     }
+// }
+
+
 // user stuff
 void user::setFname(string Fname)
 {
@@ -131,10 +182,76 @@ void List::deleteAll()
     notebook.clear();
 }
 
-void List::show()
-{
+bool List::saveAll()
+{//    file_obj.open("Input.txt", ios::app);
 
+     ofstream outFile;
+    outFile.open("db.txt",ios::out);
+        if (outFile.is_open())
+        {
+            for (const user &user : notebook)
+            {
+                outFile << user.getFirstName() << " " << user.getLastName() << " " << user.getEmail() << "\n";
+                for (const auto &entry : user.getNumbers())
+                {
+                    outFile << entry.first << " " << static_cast<int>(entry.second) << "\n";
+                }
+                outFile << "---\n";
+            }
+            outFile.close();
+            return true;
+            // cout << "All users saved to db.txt.\n";
+        }
+        else
+        {
+            return false;
+            // cout << "Error opening db.txt for writing.\n";
+        }
 }
+
+bool List::loadAll()
+{
+    ifstream inFile;
+    inFile.open("db.txt",ios::in);
+    if (inFile.is_open())
+    {
+        while (!inFile.eof())
+        {
+            user user;
+            string Fname,Lname,Email;
+            inFile >> Fname >>Lname >>Email;
+            user.setUser(Fname,Lname,Email);
+            if (user.getFirstName().empty() && user.getLastName().empty() && user.getEmail().empty())
+            {
+                break;
+            }
+
+            string number;
+            int category;
+            while (true)
+            {
+                inFile >> number;
+                if (number == "---")
+                {
+                    break;
+                }
+                inFile >> category;
+                user.addNumber(make_pair(number, static_cast<PhoneType>(category)));
+            }
+            notebook.push_back(user);
+        }
+
+        inFile.close();
+        return true;
+        // cout << "Data loaded from db.txt.\n";
+    }
+    else
+    {
+        return false;
+        // cout << "No db.txt found or error opening db.txt for reading.\n";
+    }
+}
+
 
 
 

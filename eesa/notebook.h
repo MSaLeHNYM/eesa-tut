@@ -8,12 +8,6 @@
 
 using namespace std;
 
-// Universal Funcs
-bool isValidEmail(const string &email);
-bool isValidPhoneNumber(const string &number);
-int stringToIntPhoneType(string type);
-
-
 enum PhoneType
 {
     Main = 1,
@@ -23,8 +17,6 @@ enum PhoneType
     Fax
 };
 
-// Universal Funcs
-string phoneTypeToString(PhoneType type);
 
 class user
 {
@@ -40,6 +32,7 @@ public:
     void setEmail(string Email);
     void setUser(string Fname, string Lname, string Email);
     void addNumber(pair<string, PhoneType> number);
+    friend class MainWindow;
     string getFirstName() const
     {
         return firstName;
@@ -71,12 +64,24 @@ public:
     List search(string entry);
     void sort();
     void deleteAll();
-    void show();
-    vector<user> getnotebook() const
+    bool saveAll();
+    bool loadAll();
+    vector<user> getnotebook()
     {
         return notebook;
     };
-    // friend void MainWindow::on_show_PB_clicked();
+    // friend class MainWindow;
+
+
 };
+// Universal Funcs
+bool isValidEmail(const string &email);
+bool isValidPhoneNumber(const string &number);
+bool isValidName(const string &name);
+int stringToIntPhoneType(string type);
+string phoneTypeToString(PhoneType type);
+bool IsThisNotRepetitiveNumber(List NoteBook, string number);
+
+
 
 #endif // NOTEBOOK_H

@@ -17,6 +17,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    bool ChekPrint=true;
+    List getNoteBook()
+    {
+        return NoteBook;
+    };
 
 private slots:
     void on_showAddUserMenu_PB_clicked();
@@ -27,8 +32,19 @@ private slots:
 
     void on_Add_PB_clicked();
 
+    void on_Add_Phone_Number_PB_clicked();
+
+
+    void on_Sort_PB_clicked();
+
+    void on_Delete_All_PB_clicked();
+
+    void on_Save_PB_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     List NoteBook;
+    vector<pair<string, PhoneType>> Numbers;
 };
 #endif // MAINWINDOW_H
