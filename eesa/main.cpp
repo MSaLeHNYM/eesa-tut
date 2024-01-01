@@ -1,6 +1,8 @@
+#include"notebook.h"
 #include "mainwindow.h"
 
 #include <QApplication>
+
 
 int main(int argc, char *argv[])
 {

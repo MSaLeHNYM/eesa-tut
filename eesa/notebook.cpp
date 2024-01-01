@@ -1,4 +1,6 @@
 #include "notebook.h"
+#include <fstream>
+#include<QDir.h>
 
 // Universal Funcs
 bool isValidEmail(const string &email)
@@ -6,11 +8,77 @@ bool isValidEmail(const string &email)
     const regex pattern(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
     return regex_match(email, pattern);
 }
-
 bool isValidPhoneNumber(const string &number)
 {
     return !number.empty() && all_of(number.begin(), number.end(), ::isdigit);
 }
+bool isValidName(const string &name)
+{
+    return !name.empty() && all_of(name.begin(), name.end(), ::isalpha);
+}
+bool IsThisNotRepetitiveNumber(List NoteBook ,string number)
+{
+    vector<user> notebook=NoteBook.getnotebook();
+    for (const user &u :notebook )
+    {
+        for (const auto &entry : u.getNumbers())
+        {
+            if (entry.first == number)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool IsThisNotRepetitiveEmail(List NoteBook, string Email)
+{
+    vector<user> notebook=NoteBook.getnotebook();
+    for ( const user &u :notebook )
+    {
+        if (Email == u.getEmail())
+        {
+            return false;
+        }
+
+    }
+    return true;
+
+}
+string phoneTypeToString(PhoneType type)
+{
+    switch (type)
+    {
+    case PhoneType::Main:
+        return "Main";
+    case PhoneType::Home:
+        return "Home";
+    case PhoneType::Work:
+        return "Work";
+    case PhoneType::Office:
+        return "Office";
+    case PhoneType::Fax:
+        return "Fax";
+    default:
+        return "Unknown";
+    }
+}
+int stringToIntPhoneType(string type)
+{
+    if (type=="Main")
+        return 1;
+    else if(type=="Home")
+        return 2;
+    else if (type=="work")
+        return 3;
+    else if (type=="office")
+        return 4;
+    else if (type=="Fax")
+        return 5;
+    else
+        return -1;
+}
+
 
 // user stuff
 void user::setFname(string Fname)
@@ -57,10 +125,15 @@ List List::search(string entry)
     List res;
     for (size_t i = 0; i < notebook.size(); i++)
     {
-        const user &User = notebook[i];
-        if (User.getFirstName() == entry || User.getLastName() == entry || User.getEmail() == entry)
+        user User = notebook[i];
+        if (User.getFirstName() == entry || User.getLastName() == entry)
         {
             res.addUser(User);
+        }
+        else if ( User.getEmail() == entry)
+        {
+            res.addUser(User);
+            return res;
         }
         else
         {
@@ -69,7 +142,7 @@ List List::search(string entry)
                 if (number.first == entry)
                 {
                     res.addUser(User);
-                    break;
+                    return res;
                 }
             }
         }
@@ -96,3 +169,45 @@ void List::deleteAll()
 {
     notebook.clear();
 }
+
+void List::deleteuser(user user_d)
+{
+    int i=0;
+    for(const auto &us : notebook)
+    {
+        bool chekremove=false ,chekall=true;
+        if(us.getEmail() == user_d.getEmail() && us.getFirstName()==user_d.getFirstName() && us.getLastName()==user_d.getLastName())
+        {
+            int j=0;
+            for(const auto &num : us.getNumbers() )
+            {
+                if(num==user_d.getNumbers()[j])
+                {
+                    j++;
+                }
+                else
+                {
+                    chekall=false;
+                    break;
+                }
+            }
+            if(chekall)
+            chekremove=true;
+        }
+
+        if(chekremove)
+        {
+            removeUser(i);
+            return;
+        }
+        i++;
+    }
+}
+
+
+
+
+
+
+
+

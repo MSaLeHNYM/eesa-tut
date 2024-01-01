@@ -8,10 +8,6 @@
 
 using namespace std;
 
-// Universal Funcs
-bool isValidEmail(const string &email);
-bool isValidPhoneNumber(const string &number);
-
 enum PhoneType
 {
     Main = 1,
@@ -20,6 +16,7 @@ enum PhoneType
     Office,
     Fax
 };
+
 
 class user
 {
@@ -35,6 +32,7 @@ public:
     void setEmail(string Email);
     void setUser(string Fname, string Lname, string Email);
     void addNumber(pair<string, PhoneType> number);
+    friend class MainWindow;
     string getFirstName() const
     {
         return firstName;
@@ -63,9 +61,27 @@ private:
 public:
     void addUser(user User);
     void removeUser(int index);
+    void deleteuser(user user_d);
     List search(string entry);
     void sort();
     void deleteAll();
+    vector<user> getnotebook()
+    {
+        return notebook;
+    };
+    // friend class MainWindow;
+
+
 };
+// Universal Funcs
+bool isValidEmail(const string &email);
+bool isValidPhoneNumber(const string &number);
+bool isValidName(const string &name);
+int stringToIntPhoneType(string type);
+string phoneTypeToString(PhoneType type);
+bool IsThisNotRepetitiveNumber(List NoteBook, string number);
+bool IsThisNotRepetitiveEmail(List NoteBook, string Email);
+
+
 
 #endif // NOTEBOOK_H
