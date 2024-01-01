@@ -80,34 +80,6 @@ int stringToIntPhoneType(string type)
 }
 
 
-// bool saveAll(List NoteBook.)
-// {//    file_obj.open("Input.txt", ios::app);
-
-//     ofstream outFile;
-//     outFile.open("db.txt",ios::out);
-//     if (outFile.is_open())
-//     {
-//         for (const user &user : notebook)
-//         {
-//             outFile << user.getFirstName() << " " << user.getLastName() << " " << user.getEmail() << "\n";
-//             for (const auto &entry : user.getNumbers())
-//             {
-//                 outFile << entry.first << " " << static_cast<int>(entry.second) << "\n";
-//             }
-//             outFile << "---\n";
-//         }
-//         outFile.close();
-//         return true;
-//         // cout << "All users saved to db.txt.\n";
-//     }
-//     else
-//     {
-//         return false;
-//         // cout << "Error opening db.txt for writing.\n";
-//     }
-// }
-
-
 // user stuff
 void user::setFname(string Fname)
 {
@@ -196,6 +168,40 @@ void List::sort()
 void List::deleteAll()
 {
     notebook.clear();
+}
+
+void List::deleteuser(user user_d)
+{
+    int i=0;
+    for(const auto &us : notebook)
+    {
+        bool chekremove=false ,chekall=true;
+        if(us.getEmail() == user_d.getEmail() && us.getFirstName()==user_d.getFirstName() && us.getLastName()==user_d.getLastName())
+        {
+            int j=0;
+            for(const auto &num : us.getNumbers() )
+            {
+                if(num==user_d.getNumbers()[j])
+                {
+                    j++;
+                }
+                else
+                {
+                    chekall=false;
+                    break;
+                }
+            }
+            if(chekall)
+            chekremove=true;
+        }
+
+        if(chekremove)
+        {
+            removeUser(i);
+            return;
+        }
+        i++;
+    }
 }
 
 

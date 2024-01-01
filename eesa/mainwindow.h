@@ -18,6 +18,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+
     bool ChekPrint=true;
     List getNoteBook()
     {
@@ -49,6 +51,7 @@ private:
     Ui::MainWindow *ui;
     // MainWindow *mainform;
     deleteform *delform;
+
     List NoteBook;
     vector<pair<string, PhoneType>> Numbers;
 };

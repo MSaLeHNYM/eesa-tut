@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete delform;
     delete ui;
 }
 void MainWindow::on_showAddUserMenu_PB_clicked()
@@ -220,9 +221,31 @@ void MainWindow::on_Search_PB_clicked()
 
 void MainWindow::on_delete_PB_clicked()
 {
-    // mainform->hide();
-     ui->main_textEdit->append("==========================================");
-    delform->setModal(true);
-    delform->show();
+    QString qentry = ui->main_lineEdit->text();
+    if (qentry=="")
+    {
+        QMessageBox::warning(this,"Warning","please enter something to Delete for.");
+    }
+    else
+    {
+        List res = NoteBook.search(qentry.toStdString());
+        if(res.getnotebook().empty())
+        {
+            QMessageBox::information(this,"Information","No users were found for your Delete!!.");
+            return;
+        }
+        // this->hide();
+        delform->FillTable(res);
+        delform->exec();
+        // auto selectedIndex = delform->getselectedIndex();
+        for(auto index :delform->getselectedIndex())
+        {
+            user user_d=res.getnotebook()[index];
+            NoteBook.deleteuser(user_d);
+        }
+        delform->getselectedIndex().clear();
+        this->show();
+
+    }
 }
 

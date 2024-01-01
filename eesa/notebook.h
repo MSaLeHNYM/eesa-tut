@@ -61,6 +61,7 @@ private:
 public:
     void addUser(user User);
     void removeUser(int index);
+    void deleteuser(user user_d);
     List search(string entry);
     void sort();
     void deleteAll();
