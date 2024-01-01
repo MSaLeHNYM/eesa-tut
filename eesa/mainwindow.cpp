@@ -4,6 +4,7 @@
 #include "fileoperations.h"
 #include <QMessageBox>
 #include <vector>
+#include <QCoreApplication>
 #include <qdir.h>
 
 
@@ -18,7 +19,31 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->setupUi(this);
-    ui->Screen->setText(QDir::currentPath());
+    // Display the welcome banner on the screen
+    const char* welcomeBanner = R"(
+██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗    ████████╗ ██████╗
+██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝    ╚══██╔══╝██╔═══██╗
+██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗         ██║   ██║   ██║
+██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝         ██║   ██║   ██║
+╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗       ██║   ╚██████╔╝
+ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝       ╚═╝    ╚═════╝
+
+███╗   ██╗ ██████╗ ████████╗███████╗██████╗  ██████╗  ██████╗ ██╗  ██╗     █████╗ ██████╗ ██████╗
+████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝    ██╔══██╗██╔══██╗██╔══██╗
+██╔██╗ ██║██║   ██║   ██║   █████╗  ██████╔╝██║   ██║██║   ██║█████╔╝     ███████║██████╔╝██████╔╝
+██║╚██╗██║██║   ██║   ██║   ██╔══╝  ██╔══██╗██║   ██║██║   ██║██╔═██╗     ██╔══██║██╔═══╝ ██╔═══╝
+██║ ╚████║╚██████╔╝   ██║   ███████╗██████╔╝╚██████╔╝╚██████╔╝██║  ██╗    ██║  ██║██║     ██║
+╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝
+    )";
+
+    // Set a fixed-width font for the QLabel
+    QFont fixedWidthFont("Courier New", 11);
+    ui->Screen->setFont(fixedWidthFont);
+
+    // Print the welcome banner to the screen
+    ui->Screen->setText(QString(welcomeBanner));
+
+    // ui->Screen->setText(QDir::currentPath());
 
     // add items to combo box
     ui->comboBox->addItem("Main");
@@ -93,6 +118,7 @@ void MainWindow::on_Add_this_Number_PB_clicked()
     {
         QMessageBox::critical(this, "Error", "This Number Already Exists", QMessageBox::Ok);
     }
+    IsInSearch = false;
 }
 
 
@@ -104,6 +130,7 @@ void MainWindow::UpdateTextShower(){
         text.append(element);
     }
     ui->Screen->setText(text);
+    IsInSearch = false;
 }
 
 
@@ -146,6 +173,7 @@ void MainWindow::on_Add_This_User_PB_clicked()
         QMessageBox::critical(this, "Error", "You Should Add At least one Number", QMessageBox::Ok);
         UpdateTextShower();
     }
+    IsInSearch = false;
 }
 
 
@@ -174,6 +202,7 @@ void MainWindow::on_ShowAllUser_PB_clicked()
             text.append("_________________\n");
         }
     }
+    IsInSearch = false;
     ui->Screen->setText(text);
 }
 
@@ -201,9 +230,9 @@ void MainWindow::on_pushButton_clicked()
         QMessageBox::critical(this, "Error", "Fill Search Input First", QMessageBox::Ok);
         return;
     }else{
-        List res = NoteBook.search(entry.toStdString());
+        SearchRes = NoteBook.search(entry.toStdString());
         int count = 0;
-        for(auto &uu : res.$getNoteBook()){
+        for(auto &uu : SearchRes.$getNoteBook()){
             count++;
             text.append(QString::number(count) + ":\n");
             text.append("   First Name: " + QString::fromStdString(uu.getFirstName()) + "\n");
@@ -222,6 +251,7 @@ void MainWindow::on_pushButton_clicked()
         }
 
     }
+    IsInSearch = true;
     ui->Screen->setText(text);
 }
 
@@ -232,5 +262,71 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_SaveAll_PB_2_clicked()
 {
     saveAll(NoteBook);
+}
+
+
+void MainWindow::on_SaveAll_PB_clicked()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Delete All", "Are you sure you want to delete all users?",
+                                  QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        // User clicked Yes, delete all users
+        NoteBook.deleteAll();// Assuming you have a clear() function in your List class
+        UpdateTextShower();
+        QMessageBox::information(this, "Success", "All users deleted successfully", QMessageBox::Ok);
+    } else {
+        // User clicked No or canceled, do nothing
+    }
+}
+
+
+void MainWindow::on_Exit_PB_clicked()
+{
+    saveAll(NoteBook);
+    QCoreApplication::quit();
+}
+
+
+void MainWindow::on_DeleteUser_PB_clicked()
+{
+    // if (IsInSearch)
+    // {
+    //     int inputIndex = ui->IndexToDelete_PB->text().toInt();
+
+    //     // Check if inputIndex is in the valid range (1 - SearchRes.size())
+    //     if (inputIndex >= 1 && inputIndex <= SearchRes.size())
+    //     {
+    //         // Display a confirmation message to the user
+    //         QMessageBox::StandardButton reply;
+    //         reply = QMessageBox::question(this, "Confirmation", "Are you sure you want to delete this user?",
+    //                                       QMessageBox::Yes | QMessageBox::No);
+
+    //         if (reply == QMessageBox::Yes)
+    //         {
+    //             // Delete the user at the specified index
+    //             NoteBook.deleteUser(SearchRes[inputIndex - 1]);
+
+    //             // Reset search state and clear search results
+    //             IsInSearch = false;
+    //             SearchRes.clear();
+
+    //             // Update the UI or display a message indicating successful deletion
+    //             UpdateTextShower();
+    //             QMessageBox::information(this, "Success", "User deleted successfully", QMessageBox::Ok);
+    //         }
+    //         // If the user clicks "No," do nothing (cancel deletion)
+    //     }
+    //     else
+    //     {
+    //         // Display an error message if the inputIndex is out of range
+    //         QMessageBox::critical(this, "Error", "Invalid index. Please enter a valid index.", QMessageBox::Ok);
+    //     }
+    // }
+    // else
+    // {
+    //     QMessageBox::critical(this, "Error", "First search for the user you want to delete, then input the index!", QMessageBox::Ok);
+    // }
 }
 
