@@ -64,8 +64,6 @@ public:
     List search(string entry);
     void sort();
     void deleteAll();
-    bool saveAll();
-    bool loadAll();
     vector<user> getnotebook()
     {
         return notebook;
@@ -81,6 +79,7 @@ bool isValidName(const string &name);
 int stringToIntPhoneType(string type);
 string phoneTypeToString(PhoneType type);
 bool IsThisNotRepetitiveNumber(List NoteBook, string number);
+bool IsThisNotRepetitiveEmail(List NoteBook, string Email);
 
 
 

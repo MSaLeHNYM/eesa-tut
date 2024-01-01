@@ -146,32 +146,6 @@
       </layout>
      </item>
      <item>
-      <widget class="QGroupBox" name="search_by_groupBox">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="title">
-        <string>Search/Delete by : {First/Last name  / Phone Number / Email }</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QPushButton" name="Search_PB">
-          <property name="text">
-           <string>Search</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="delete_PB">
-          <property name="text">
-           <string>Delete</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7"/>
@@ -298,6 +272,38 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </item>
     </layout>
    </widget>
+   <widget class="QGroupBox" name="search_by_groupBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>540</y>
+      <width>639</width>
+      <height>73</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Search/Delete by : {First/Last name  / Phone Number / Email }</string>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QPushButton" name="Search_PB">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delete_PB">
+       <property name="text">
+        <string>Delete</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -320,12 +326,28 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>907</x>
-     <y>536</y>
+     <x>639</x>
+     <y>491</y>
     </hint>
     <hint type="destinationlabel">
      <x>365</x>
      <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delete_PB</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>508</x>
+     <y>612</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>737</x>
+     <y>652</y>
     </hint>
    </hints>
   </connection>

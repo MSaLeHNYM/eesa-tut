@@ -1,13 +1,17 @@
 #include "mainwindow.h"
-#include"FileOperations.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include<qdir.h>
+#include"fileop.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    NoteBook=loadAll();
+    // mainform = new MainWindow();
+    delform = new deleteform();
 }
 
 MainWindow::~MainWindow()
@@ -16,24 +20,29 @@ MainWindow::~MainWindow()
 }
 void MainWindow::on_showAddUserMenu_PB_clicked()
 {
-    NoteBook.loadAll();
+
 }
 
 void MainWindow::on_show_PB_clicked()
 {
     ui->main_textEdit->clear();
-    ui->main_textEdit->append("All users:");
-    for(user nuser : NoteBook.getnotebook())
+    ui->main_textEdit->append("All users :");
+    ui->main_textEdit->append("==========================================");
+    int Iindex=1;
+    for(const user &nuser : NoteBook.getnotebook())
     {
-        string name ="First Name: "+nuser.getFirstName()+"\tLast Name :"+nuser.getLastName()+"\tEmail :"+nuser.getEmail();
+        string name =to_string(Iindex)+" )\n"+"First Name: "+nuser.getFirstName()+"\tLast Name :"+nuser.getLastName()+"\tEmail :"+nuser.getEmail();
         ui->main_textEdit->append(QString::fromStdString(name));
         ui->main_textEdit->append("Numbers:");
-        for(auto entry :nuser.getNumbers())
+        int Jindex=1;
+        for(const auto &entry :nuser.getNumbers())
         {
-            string number=entry.first+"  (Category:"+phoneTypeToString(entry.second);
+            string number=to_string(Jindex)+" )"+entry.first+"  (Category:"+phoneTypeToString(entry.second)+")";
             ui->main_textEdit->append(QString::fromStdString(number));
+            Jindex++;
         }
-        ui->main_textEdit->append("____________________________");
+        ui->main_textEdit->append("__________________________________________");
+        Iindex++;
     }
 }
 
@@ -48,8 +57,6 @@ void MainWindow::on_Add_PB_clicked()
     QString qLname = ui->Lname_lineEdit->text();
     QString qEmail = ui->Email_lineEdit->text();
     QString qNumber = ui->Phone_Number_lineEdit->text();
-    QString qType = ui->Phone_Type_comboBox->currentText();
-    int Phone_Type=stringToIntPhoneType(qType.toStdString());
 
     if(!isValidName(qFname.toStdString()))
     {
@@ -62,6 +69,10 @@ void MainWindow::on_Add_PB_clicked()
     else if(!isValidEmail(qEmail.toStdString()))
     {
         QMessageBox::warning(this,"warning","wrong inputs. please enter a corect Email !!!!");
+    }
+    else if (!IsThisNotRepetitiveEmail(NoteBook,qEmail.toStdString()))
+    {
+        QMessageBox::warning(this,"Warning","This Email already exists !!! Please enter a unique Email.");
     }
     else if(qNumber=="" && Numbers.empty())
     {
@@ -89,7 +100,6 @@ void MainWindow::on_Add_PB_clicked()
         ChekPrint=true;
         user new_user;
         new_user.setUser(qFname.toStdString(),qLname.toStdString(),qEmail.toStdString());
-        // new_user.addNumber(make_pair(qNumber.toStdString(),static_cast<PhoneType>(Phone_Type)));
         new_user.numbers= Numbers;
         NoteBook.addUser(new_user);
         QString nuser ="First Name: "+qFname+"\tLast Name :"+qLname+"\tEmail :"+qEmail;
@@ -156,11 +166,63 @@ void MainWindow::on_Delete_All_PB_clicked()
 
 void MainWindow::on_Save_PB_clicked()
 {
-    if(NoteBook.saveAll())
+
+    if(saveAll(NoteBook))
         QMessageBox::information(this,"Informatiom","All users saved to db.txt");
     else
         QMessageBox::warning(this,"Warning","Error opening db.txt for writing.");
 
 }
 
+
+
+void MainWindow::on_Search_PB_clicked()
+{
+    QString qentry = ui->main_lineEdit->text();
+    if (qentry=="")
+    {
+        QMessageBox::warning(this,"Warning","please enter something to search for.");
+    }
+    else
+    {
+        List res = NoteBook.search(qentry.toStdString());
+
+        ui->main_textEdit->clear();
+        ui->textEdit_1->clear();
+        if (res.getnotebook().empty())
+        {
+            QMessageBox::information(this,"Information","No users were found for your search!!.");
+        }
+        else
+        {
+            ui->main_textEdit->append("These users were found for your search :");
+            ui->main_textEdit->append("==========================================");
+            int Iindex=1;
+            for(const user &nuser :res.getnotebook())
+            {
+                string name =to_string(Iindex)+" )\n"+"First Name: "+nuser.getFirstName()+"\tLast Name :"+nuser.getLastName()+"\tEmail :"+nuser.getEmail();
+                ui->main_textEdit->append(QString::fromStdString(name));
+                ui->main_textEdit->append("Numbers:");
+                int Jindex=1;
+                for(const auto &entry :nuser.getNumbers())
+                {
+                    string number=to_string(Jindex)+" ) "+entry.first+"  (Category:"+phoneTypeToString(entry.second)+")";
+                    ui->main_textEdit->append(QString::fromStdString(number));
+                    Jindex++;
+                }
+                ui->main_textEdit->append("__________________________________________");
+                Iindex++;
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_delete_PB_clicked()
+{
+    // mainform->hide();
+     ui->main_textEdit->append("==========================================");
+    delform->setModal(true);
+    delform->show();
+}
 

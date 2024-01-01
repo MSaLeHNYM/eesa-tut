@@ -1,5 +1,6 @@
 #include "notebook.h"
 #include <fstream>
+#include<QDir.h>
 
 // Universal Funcs
 bool isValidEmail(const string &email)
@@ -7,7 +8,6 @@ bool isValidEmail(const string &email)
     const regex pattern(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
     return regex_match(email, pattern);
 }
-
 bool isValidPhoneNumber(const string &number)
 {
     return !number.empty() && all_of(number.begin(), number.end(), ::isdigit);
@@ -16,13 +16,12 @@ bool isValidName(const string &name)
 {
     return !name.empty() && all_of(name.begin(), name.end(), ::isalpha);
 }
-
 bool IsThisNotRepetitiveNumber(List NoteBook ,string number)
 {
     vector<user> notebook=NoteBook.getnotebook();
-    for ( user u :notebook )
+    for (const user &u :notebook )
     {
-        for ( auto entry : u.getNumbers())
+        for (const auto &entry : u.getNumbers())
         {
             if (entry.first == number)
             {
@@ -32,8 +31,20 @@ bool IsThisNotRepetitiveNumber(List NoteBook ,string number)
     }
     return true;
 }
+bool IsThisNotRepetitiveEmail(List NoteBook, string Email)
+{
+    vector<user> notebook=NoteBook.getnotebook();
+    for ( const user &u :notebook )
+    {
+        if (Email == u.getEmail())
+        {
+            return false;
+        }
 
+    }
+    return true;
 
+}
 string phoneTypeToString(PhoneType type)
 {
     switch (type)
@@ -52,7 +63,6 @@ string phoneTypeToString(PhoneType type)
         return "Unknown";
     }
 }
-
 int stringToIntPhoneType(string type)
 {
     if (type=="Main")
@@ -68,6 +78,7 @@ int stringToIntPhoneType(string type)
     else
         return -1;
 }
+
 
 // bool saveAll(List NoteBook.)
 // {//    file_obj.open("Input.txt", ios::app);
@@ -142,10 +153,15 @@ List List::search(string entry)
     List res;
     for (size_t i = 0; i < notebook.size(); i++)
     {
-        const user &User = notebook[i];
-        if (User.getFirstName() == entry || User.getLastName() == entry || User.getEmail() == entry)
+        user User = notebook[i];
+        if (User.getFirstName() == entry || User.getLastName() == entry)
         {
             res.addUser(User);
+        }
+        else if ( User.getEmail() == entry)
+        {
+            res.addUser(User);
+            return res;
         }
         else
         {
@@ -154,7 +170,7 @@ List List::search(string entry)
                 if (number.first == entry)
                 {
                     res.addUser(User);
-                    break;
+                    return res;
                 }
             }
         }
@@ -182,75 +198,9 @@ void List::deleteAll()
     notebook.clear();
 }
 
-bool List::saveAll()
-{//    file_obj.open("Input.txt", ios::app);
 
-     ofstream outFile;
-    outFile.open("db.txt",ios::out);
-        if (outFile.is_open())
-        {
-            for (const user &user : notebook)
-            {
-                outFile << user.getFirstName() << " " << user.getLastName() << " " << user.getEmail() << "\n";
-                for (const auto &entry : user.getNumbers())
-                {
-                    outFile << entry.first << " " << static_cast<int>(entry.second) << "\n";
-                }
-                outFile << "---\n";
-            }
-            outFile.close();
-            return true;
-            // cout << "All users saved to db.txt.\n";
-        }
-        else
-        {
-            return false;
-            // cout << "Error opening db.txt for writing.\n";
-        }
-}
 
-bool List::loadAll()
-{
-    ifstream inFile;
-    inFile.open("db.txt",ios::in);
-    if (inFile.is_open())
-    {
-        while (!inFile.eof())
-        {
-            user user;
-            string Fname,Lname,Email;
-            inFile >> Fname >>Lname >>Email;
-            user.setUser(Fname,Lname,Email);
-            if (user.getFirstName().empty() && user.getLastName().empty() && user.getEmail().empty())
-            {
-                break;
-            }
 
-            string number;
-            int category;
-            while (true)
-            {
-                inFile >> number;
-                if (number == "---")
-                {
-                    break;
-                }
-                inFile >> category;
-                user.addNumber(make_pair(number, static_cast<PhoneType>(category)));
-            }
-            notebook.push_back(user);
-        }
-
-        inFile.close();
-        return true;
-        // cout << "Data loaded from db.txt.\n";
-    }
-    else
-    {
-        return false;
-        // cout << "No db.txt found or error opening db.txt for reading.\n";
-    }
-}
 
 
 
