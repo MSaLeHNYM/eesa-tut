@@ -51,6 +51,11 @@ void deleteform::FillTable(List res)
         ui->delete_tableWidget->setItem(row,3,NumbersItem);
     }
 }
+
+
+
+
+
 void deleteform::on_OK_PB_clicked()
 {
     QItemSelectionModel *select = ui->delete_tableWidget->selectionModel();
@@ -60,12 +65,32 @@ void deleteform::on_OK_PB_clicked()
         QMessageBox::warning(this,"Warning","NO users selected for Delete!!!.");
         return;
     }
+    string rows="rows : { ";
     for(auto index : Indexs)
     {
-        selectedIndex.push_back(index.row());
+        rows+=to_string(index.row()+1)+" , ";
     }
-    ui->delete_tableWidget->clear();
-    this->close();
+    auto ans= QMessageBox::question(this,"Question","Are you sure you want to delete these rows?\n"+QString::fromStdString(rows)+" }",QMessageBox::Yes | QMessageBox::No);
+    if (ans==QMessageBox::Yes)
+    {
+        for(auto index : Indexs)
+        {
+            selectedIndex.push_back(index.row());
+        }
+        ui->delete_tableWidget->clear();
+        this->close();
+        Yes_Or_NO=true;
+    }
+    else
+    {
+        Yes_Or_NO=false;
+    }
+}
 
+
+void deleteform::on_Cancel_PB_clicked()
+{
+    Yes_Or_NO=false;
+    this->close();
 }
 

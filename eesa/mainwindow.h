@@ -19,7 +19,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
+    void Show_All_Users();
+    void Show_User(user nuser,int Iindex);
     bool ChekPrint=true;
     List getNoteBook()
     {
@@ -27,17 +28,12 @@ public:
     };
 
 private slots:
-    void on_showAddUserMenu_PB_clicked();
-
-    void on_show_PB_clicked();
-
-    void on_clear_PB_clicked();
 
     void on_Add_PB_clicked();
 
-    void on_Add_Phone_Number_PB_clicked();
+    void on_clear_PB_clicked();
 
-    void on_Sort_PB_clicked();
+    void on_Add_Phone_Number_PB_clicked();
 
     void on_Delete_All_PB_clicked();
 
@@ -47,9 +43,17 @@ private slots:
 
     void on_delete_PB_clicked();
 
+    void on_Sort_and_Show_PB_clicked();
+
+    void on_cancel_number_PB_clicked();
+
+    void on_Exit_PB_clicked();
+
+    void on_OK_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
-    // MainWindow *mainform;
+
     deleteform *delform;
 
     List NoteBook;

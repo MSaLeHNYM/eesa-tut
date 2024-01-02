@@ -30,13 +30,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="show_PB">
-          <property name="text">
-           <string>Show</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="clear_PB">
           <property name="text">
            <string>clear</string>
@@ -44,9 +37,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="Sort_PB">
+         <widget class="QPushButton" name="Sort_and_Show_PB">
           <property name="text">
-           <string>Sort</string>
+           <string>Sort and Show</string>
           </property>
          </widget>
         </item>
@@ -177,13 +170,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QPushButton" name="Cancel_PB">
-                  <property name="text">
-                   <string>Cancel</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
              </layout>
@@ -281,7 +267,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QTextEdit" name="textEdit_1">
+         <widget class="QTextEdit" name="Phone_textEdit">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -293,6 +279,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <width>16777215</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -341,12 +330,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>403</y>
+     <x>117</x>
+     <y>589</y>
     </hint>
     <hint type="destinationlabel">
-     <x>881</x>
-     <y>609</y>
+     <x>83</x>
+     <y>628</y>
     </hint>
    </hints>
   </connection>

@@ -108,16 +108,13 @@ void user::addNumber(pair<string, PhoneType> number)
     numbers.push_back(number);
 }
 
+
+
 // notebook stuff
 
 void List::addUser(user User)
 {
     notebook.push_back(User);
-}
-
-void List::removeUser(int index)
-{
-    notebook.erase(notebook.begin() + index);
 }
 
 List List::search(string entry)
@@ -165,9 +162,9 @@ void List::sort()
     }
 }
 
-void List::deleteAll()
+void List::removeUser(int index)
 {
-    notebook.clear();
+    notebook.erase(notebook.begin() + index);
 }
 
 void List::deleteuser(user user_d)
@@ -175,23 +172,10 @@ void List::deleteuser(user user_d)
     int i=0;
     for(const auto &us : notebook)
     {
-        bool chekremove=false ,chekall=true;
-        if(us.getEmail() == user_d.getEmail() && us.getFirstName()==user_d.getFirstName() && us.getLastName()==user_d.getLastName())
+        bool chekremove=false ;
+
+        if (us.getNumbers()[0].first==user_d.getNumbers()[0].first)
         {
-            int j=0;
-            for(const auto &num : us.getNumbers() )
-            {
-                if(num==user_d.getNumbers()[j])
-                {
-                    j++;
-                }
-                else
-                {
-                    chekall=false;
-                    break;
-                }
-            }
-            if(chekall)
             chekremove=true;
         }
 
@@ -202,6 +186,11 @@ void List::deleteuser(user user_d)
         }
         i++;
     }
+}
+
+void List::deleteAll()
+{
+    notebook.clear();
 }
 
 

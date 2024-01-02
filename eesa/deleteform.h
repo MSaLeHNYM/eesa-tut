@@ -23,10 +23,14 @@ public:
         return selectedIndex;
     }
 
+    bool Yes_Or_NO=false;
+
 private slots:
 
 
     void on_OK_PB_clicked();
+
+    void on_Cancel_PB_clicked();
 
 private:
     Ui::deleteform *ui;
