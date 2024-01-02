@@ -43,10 +43,18 @@ void List::addUser(user User)
     notebook.push_back(User);
 }
 
-void List::removeUser(int index)
+void List::removeUser(const user& uu)
 {
-    notebook.erase(notebook.begin() + index);
+    auto iter = find_if(notebook.begin(), notebook.end(), [&uu](const user& userEntry) {
+        return userEntry.getEmail() == uu.getEmail();
+    });
+
+    if (iter != notebook.end())
+    {
+        notebook.erase(iter);
+    }
 }
+
 
 List List::search(string entry)
 {

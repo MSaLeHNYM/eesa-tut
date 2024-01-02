@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     )";
 
     // Set a fixed-width font for the QLabel
-    QFont fixedWidthFont("Courier New", 11);
+    QFont fixedWidthFont("Courier New", 10);
     ui->Screen->setFont(fixedWidthFont);
 
     // Print the welcome banner to the screen
@@ -291,42 +291,48 @@ void MainWindow::on_Exit_PB_clicked()
 
 void MainWindow::on_DeleteUser_PB_clicked()
 {
-    // if (IsInSearch)
-    // {
-    //     int inputIndex = ui->IndexToDelete_PB->text().toInt();
+    if (IsInSearch)
+    {
+        size_t inputIndex = ui->IndexToDelete_PB->text().toInt();
 
-    //     // Check if inputIndex is in the valid range (1 - SearchRes.size())
-    //     if (inputIndex >= 1 && inputIndex <= SearchRes.size())
-    //     {
-    //         // Display a confirmation message to the user
-    //         QMessageBox::StandardButton reply;
-    //         reply = QMessageBox::question(this, "Confirmation", "Are you sure you want to delete this user?",
-    //                                       QMessageBox::Yes | QMessageBox::No);
+        // Check if inputIndex is in the valid range (1 - SearchRes.size())
+        if (inputIndex >= 1 && inputIndex <= SearchRes.$getNoteBook().size())
+        {
+            // Display a confirmation message to the user
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Confirmation", "Are you sure you want to delete this user?",
+                                          QMessageBox::Yes | QMessageBox::No);
 
-    //         if (reply == QMessageBox::Yes)
-    //         {
-    //             // Delete the user at the specified index
-    //             NoteBook.deleteUser(SearchRes[inputIndex - 1]);
+            if (reply == QMessageBox::Yes)
+            {
+                // Delete the user at the specified index
+                NoteBook.removeUser(SearchRes.$getNoteBook()[inputIndex - 1]);
 
-    //             // Reset search state and clear search results
-    //             IsInSearch = false;
-    //             SearchRes.clear();
+                // Reset search state and clear search results
+                IsInSearch = false;
+                SearchRes.deleteAll();
+                MainWindow::on_ShowAllUser_PB_clicked();
+                // Update the UI or display a message indicating successful deletion
+                QMessageBox::information(this, "Success", "User deleted successfully", QMessageBox::Ok);
+            }
+            // If the user clicks "No," do nothing (cancel deletion)
+        }
+        else
+        {
+            // Display an error message if the inputIndex is out of range
+            QMessageBox::critical(this, "Error", "Invalid index. Please enter a valid index.", QMessageBox::Ok);
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this, "Error", "First search for the user you want to delete, then input the index!", QMessageBox::Ok);
+    }
+}
 
-    //             // Update the UI or display a message indicating successful deletion
-    //             UpdateTextShower();
-    //             QMessageBox::information(this, "Success", "User deleted successfully", QMessageBox::Ok);
-    //         }
-    //         // If the user clicks "No," do nothing (cancel deletion)
-    //     }
-    //     else
-    //     {
-    //         // Display an error message if the inputIndex is out of range
-    //         QMessageBox::critical(this, "Error", "Invalid index. Please enter a valid index.", QMessageBox::Ok);
-    //     }
-    // }
-    // else
-    // {
-    //     QMessageBox::critical(this, "Error", "First search for the user you want to delete, then input the index!", QMessageBox::Ok);
-    // }
+
+void MainWindow::on_sort_PB_clicked()
+{
+    NoteBook.sort();
+    MainWindow::on_ShowAllUser_PB_clicked();
 }
 

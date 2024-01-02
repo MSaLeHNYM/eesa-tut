@@ -33,6 +33,8 @@ private slots:
 
     void on_DeleteUser_PB_clicked();
 
+    void on_sort_PB_clicked();
+
 private:
     void UpdateTextShower();
 

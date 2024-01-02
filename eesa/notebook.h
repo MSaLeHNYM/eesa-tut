@@ -86,7 +86,7 @@ private:
 
 public:
     void addUser(user User);
-    void removeUser(int index);
+    void removeUser(const user& uu);
     List search(string entry);
     void sort();
     void deleteAll();
