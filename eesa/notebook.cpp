@@ -1,6 +1,6 @@
 #include "notebook.h"
 #include <fstream>
-#include<QDir.h>
+// #include<QDir.h>/
 
 // Universal Funcs
 bool isValidEmail(const string &email)
